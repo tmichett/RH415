@@ -9,11 +9,11 @@
     - name: configures apache to use custom.html as the DirectoryIndex
       lineinfile:
         path: /etc/httpd/conf/httpd.conf
-        regexp: 'DirectoryIndex index.html'
+        regexp: 'DirectoryIndex custom1.html'
         backrefs: yes
         line: 'DirectoryIndex custom.html'
       notify:
-      - restart apache
+      - restart apache  ### Calls handler because confg file changed
     - name: opens TCP port 80 in firewall
       firewalld:
         port: 80/tcp
@@ -31,6 +31,8 @@
         name: httpd
         state: started
         enabled: true
+  
+  ### Performs service restarts because a config file changed in one or more tasks
   handlers:
     - name: restart apache
       service:

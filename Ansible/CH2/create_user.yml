@@ -1,0 +1,10 @@
+---
+- name: Configure Demo User for Systems hosts: serverb.example.com
+  tasks:
+  - name: Create Demo User with UID 5500
+    user:
+      name: demo_user 
+      uid: 5500
+      state: present
+
+...

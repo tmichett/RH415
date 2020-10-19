@@ -1,0 +1,38 @@
+---
+- name: installs, configures and starts apache
+  hosts: serverb 
+  tasks:
+    - name: installs apache package
+      package:
+        name: httpd
+        state: present
+    - name: configures apache to use custom.html as the DirectoryIndex
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: 'DirectoryIndex index.html'
+        backrefs: yes
+        line: 'DirectoryIndex custom.html'
+      notify:
+      - restart apache
+    - name: opens TCP port 80 in firewall
+      firewalld:
+        port: 80/tcp
+        state: enabled
+        permanent: true
+        immediate: yes
+    - name: copies custom web content
+      copy:
+        src: files/custom.html
+        dest: /var/www/html/custom.html
+        mode: 0644
+        setype: httpd_sys_content_t
+    - name: starts apache
+      service:
+        name: httpd
+        state: started
+        enabled: true
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted

@@ -1,0 +1,10 @@
+[LOCAL]
+workstation
+
+[SERVERS]
+servera
+serverb
+
+[EVERYONE:children]
+LOCAL
+SERVERS

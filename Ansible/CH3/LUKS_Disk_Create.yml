@@ -1,0 +1,21 @@
+---
+- name: Configure and Create a LUKS Disk
+
+  hosts: clevis
+
+  tasks:
+
+# Create Partition on Disk
+    - name: Install Tang
+      yum:
+        name: tang
+        state: present
+
+# LuksFormat Disk
+    - name: Enable TangD.Socket
+      systemd:
+        name: tangd.socket
+        enabled: yes
+        state: started
+
+# Get LUKS Key and Metadata

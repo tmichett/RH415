@@ -21,3 +21,7 @@
 # Get LUKS Key and Metadata
     - name: Dump LUKS Formatted Partition Information
       shell: cryptsetup luksDump /dev/vdb1
+      register: output
+
+    - name: Dump LUKS Formatted Partition Information
+      debug: output

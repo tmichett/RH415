@@ -58,11 +58,15 @@
     
     - name: Ensure Cryptab Keys have been added
       lineinfile:
-        
+        path: /etc/crypttab 
+        regexp: '^storage_demo'
+        line: storage_demo /dev/vdb1  none _netdev
 
 ## Create /etc/fstab File Entries
     
     - name: Ensure /etc/fstab has been updated
       lineinfile:
-
+        path: /etc/fstab
+        regexp: '^/dev/mapper/storage_demo'
+        line: /dev/mapper/storage_demo /mnt xfs _netdev 1 2
 ...

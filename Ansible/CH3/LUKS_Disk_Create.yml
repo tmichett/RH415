@@ -24,4 +24,5 @@
       register: output
 
     - name: Dump LUKS Formatted Partition Information
-      debug: output
+      debug:
+        var: output

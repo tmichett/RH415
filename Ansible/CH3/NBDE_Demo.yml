@@ -4,7 +4,7 @@
   hosts: tang
 
   tasks:
-  
+
     - name: Install Tang
       yum:
         name: tang
@@ -29,10 +29,11 @@
   hosts: clevis
 
   vars:
-    sss_cfg: '{"t":3,"pins":{"tang":[{"url":"http://serverb"},{"url":"http://serverc"},{"url":"http://serverd"}]}}' 
+    sss_cfg: '{"t":3,"pins":{"tang":[{"url":"http://serverb"},{"url":"http://serverc"},{"url":"http://serverd"}]}}'
+    luks_pw: redhatRHT
 
   tasks:
-    
+
     - name: Install Clevis Packages
       yum:
         name:
@@ -44,7 +45,7 @@
 ## Bind Clevis to LUKS
 
     - name: Perform Clevis LUKS Bind
-      shell: clevis luks bind -f -d /dev/vdb1 sss "{{ sss_cfg }}" -k redhat123
+      shell: clevis luks bind -f -d /dev/vdb1 sss "{{ sss_cfg }}" -k {{ luks_pw }}
 
 ## Enable Clevis Service
 
@@ -55,15 +56,15 @@
         state: started
 
 ## Create Crypttab File Entries
-    
+
     - name: Ensure Cryptab Keys have been added
       lineinfile:
-        path: /etc/crypttab 
+        path: /etc/crypttab
         regexp: '^storage_demo'
         line: storage_demo /dev/vdb1  none _netdev
 
 ## Create /etc/fstab File Entries
-    
+
     - name: Ensure /etc/fstab has been updated
       lineinfile:
         path: /etc/fstab

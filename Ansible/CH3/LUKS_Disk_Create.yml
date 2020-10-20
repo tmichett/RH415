@@ -19,3 +19,5 @@
       shell: echo -n "{{ luks_pw }}" | cryptsetup luksFormat /dev/vdb1 -
 
 # Get LUKS Key and Metadata
+    - name: Dump LUKS Formatted Partition Information
+      shell: cryptsetup luksDump /dev/vdb1

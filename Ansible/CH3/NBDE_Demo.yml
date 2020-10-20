@@ -45,7 +45,7 @@
 ## Bind Clevis to LUKS
 
     - name: Perform Clevis LUKS Bind
-      shell: clevis luks bind -f -d /dev/vdb1 sss "{{ sss_cfg }}" -k {{ luks_pw }}
+      shell: echo "{{ luks_pw }}" | clevis luks bind -f -k- -d /dev/vdb1 sss "$sss_cfg
 
 ## Enable Clevis Service
 

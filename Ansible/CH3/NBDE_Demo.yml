@@ -44,7 +44,7 @@
 ## Bind Clevis to LUKS
 
     - name: Perform Clevis LUKS Bind
-      command:
+      shell: clevis luks bind -f -d /dev/vdb1 sss "{{ sss_cfg }}" -k redhat123
 
 ## Enable Clevis Service
 
@@ -55,9 +55,14 @@
         state: started
 
 ## Create Crypttab File Entries
-
+    
+    - name: Ensure Cryptab Keys have been added
+      lineinfile:
+        
 
 ## Create /etc/fstab File Entries
-
+    
+    - name: Ensure /etc/fstab has been updated
+      lineinfile:
 
 ...

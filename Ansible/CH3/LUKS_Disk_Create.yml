@@ -2,20 +2,20 @@
 - name: Configure and Create a LUKS Disk
 
   hosts: clevis
-
+  vars:
+    disk: /dev/vdb
+    luks_pw: redhatRHT
   tasks:
 
 # Create Partition on Disk
-    - name: Install Tang
-      yum:
-        name: tang
+    - name: Partition Disk {{ disk }}
+      parted:
+        device: "{{ disk }}"
         state: present
+        number: 1
 
 # LuksFormat Disk
-    - name: Enable TangD.Socket
-      systemd:
-        name: tangd.socket
-        enabled: yes
-        state: started
+    - name: Create a LUKS Formatted Partition
+      shell: echo -n "{{ luks_pw }}" | cryptsetup luksFormat /dev/vdb1 -
 
 # Get LUKS Key and Metadata

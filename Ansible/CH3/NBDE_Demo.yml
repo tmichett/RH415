@@ -1,0 +1,63 @@
+---
+- name: Configure TANG Keyservers
+
+  hosts: tang
+
+  tasks:
+  
+    - name: Install Tang
+      yum:
+        name: tang
+        state: present
+
+    - name: Enable TangD.Socket
+      systemd:
+        name: tangd.socket
+        enabled: yes
+        state: started
+
+    - name: Enable Firewall service
+      firewalld:
+        zone: public
+        port: 80/tcp
+        permanent: true
+        immediate: true
+        state: enabled
+
+- name: Configure Clevis Client
+
+  hosts: clevis
+
+  vars:
+    sss_cfg: '{"t":3,"pins":{"tang":[{"url":"http://serverb"},{"url":"http://serverc"},{"url":"http://serverd"}]}}' 
+
+  tasks:
+    
+    - name: Install Clevis Packages
+      yum:
+        name:
+          - clevis
+          - clevis-luks
+          - clevis-dracut
+        state: present
+
+## Bind Clevis to LUKS
+
+    - name: Perform Clevis LUKS Bind
+      command:
+
+## Enable Clevis Service
+
+    - name: Enable Clevis Service on Client for LUKS-askpass
+      systemd:
+        name: clevis-luks-askpass.path
+        enabled: yes
+        state: started
+
+## Create Crypttab File Entries
+
+
+## Create /etc/fstab File Entries
+
+
+...

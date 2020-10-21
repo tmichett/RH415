@@ -58,9 +58,9 @@
 
     - name: Copy Script
       copy:
-        src: ./Scripts/tangB
+        src: ./Scripts/tangb_key.sh
         dest: /root/tang_key.sh
-        
+
     - name: Retrieve ServerB Tang Data
       shell: /root/tangb_key.sh
       register: tangB_output

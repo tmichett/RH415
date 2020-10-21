@@ -44,30 +44,17 @@
 
 
 ## Get ServerB Signing Key from Tang
-#    - name: Retrieve ServerB Tang Data
-#      shell: curl -sSf serverb/adv
-#      register: tangB_output
-
-#    - name:  Filter out Tang Signing Key
-#      command: echo {{ tangB_output }} | jose fmt -j- -g payload -y -o- | jose jwk use -i- -r -u verify -o- | jose jwk thp -i-
-#      register: tangB
-
-#    - name: Display ServerB Signing Key
-#      debug:
-#        var: tangB
-
-    - name: Copy Script
-      copy:
-        src: ./Scripts/tangB
-        dest: /root/tang_key.sh
-        
     - name: Retrieve ServerB Tang Data
-      shell: /root/tangb_key.sh
+      shell: curl -sSf serverb/adv
       register: tangB_output
 
-    - name: Disaply ServerB Signing Keys
+    - name:  Filter out Tang Signing Key
+      command: echo {{ tangB_output }} | jose fmt -j- -g payload -y -o- | jose jwk use -i- -r -u verify -o- | jose jwk thp -i-
+      register: tangB
+
+    - name: Display ServerB Signing Key
       debug:
-        var: tangB_output
+        var: tangB
 
 
 ## Bind Clevis to LUKS

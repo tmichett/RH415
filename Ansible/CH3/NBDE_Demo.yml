@@ -82,7 +82,7 @@
 
     - name: Perform Clevis LUKS Bind
       shell: |
-        echo "{{ luks_pw }}" | clevis luks bind -f -k- -d /dev/vdb1 sss {"t":1,"pins":{"tang":[{"url":"http://serverb"},"thp":"{{ tangB }}"]}}
+        echo "{{ luks_pw }}" | clevis luks bind -f -k- -d /dev/vdb1 sss {"t":1,"pins":{"tang":[{"url":"http://serverb","thp":"{{ tangB }}"}]}}
 
 
 ## Enable Clevis Service

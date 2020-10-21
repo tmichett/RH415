@@ -58,7 +58,7 @@
 
     - name: Copy Script
       copy:
-        src: ./Scripts/tangb_key.sh
+        src: Scripts/tangb_key.sh
         dest: /root/tang_key.sh
 
     - name: Retrieve ServerB Tang Data

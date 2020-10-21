@@ -66,18 +66,18 @@
       shell: /root/tangb_key.sh
       register: tangB_output
 
-    - name: Disaply ServerB Signing Keys
+    - name: Display ServerB Signing Keys
       debug:
         var: tangB_output
 
     - name: Register ServerB Signing Keys
       set_fact:
-        tangB: tangB_output.stdout
+        tangB: "{{ tangB_output.stdout }}"
 
     - name: Output ServerB Signing Keys as Fact
       debug:
         var: tangB
-        
+
 ## Bind Clevis to LUKS
 
     - name: Perform Clevis LUKS Bind

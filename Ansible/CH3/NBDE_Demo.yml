@@ -82,14 +82,8 @@
 
     - name: Perform Clevis LUKS Bind
       shell: |
-        echo "{{ luks_pw }}" | clevis luks bind -f -k- -d /dev/vdb1 sss "{{ sss_cfg }}"
-        expect "Do you wish to trust these keys? [ynYN]"
-        send "\Y"
-        expect "Do you wish to trust these keys? [ynYN]"
-        send "\Y"
-        expect "Do you wish to trust these keys? [ynYN]"
-        send "\Y"
-        exit 0
+        echo "{{ luks_pw }}" | clevis luks bind -f -k- -d /dev/vdb1 sss {"t":1,"pins":{"tang":[{"url":"http://serverb"},"thp":"{{ tangB }}"]}}
+
 
 ## Enable Clevis Service
 

@@ -1,0 +1,42 @@
+https://github.com/latchset/tang/blob/master/src/tang-show-keys
+
+set -e
+
+if [ $# -gt 1 ]; then
+    echo "Usage: $0 [<port>]" >&2
+    exit 1
+fi
+
+port=${1-80}
+
+adv=$(curl -sSf localhost:$port/adv)
+
+echo $adv \
+    | jose fmt -j- -g payload -y -o- \
+    | jose jwk use -i- -r -u verify -o- \
+    | jose jwk thp -i-
+
+
+https://www.reddit.com/r/ansible/comments/cbvjg5/ansible_playbook_running_shell_commands_with/
+    for item in /dev/sd[a-z][1-9]; do
+      check=$(cryptsetup isLuks $item)
+        if [[ $? -eq 0 ]]; then
+          echo "Found LUKS header on "$item
+          clevis bind luks -f -k- -d $item sss '{"t": 1, "pins": {"tang": [{"url": "http://tang1.example.tld", "thp":"signing_key_1_here"}, {"url":   "http://tang2.example.tld, "thp":"signing_key_2_here"}, {"url": "http://tang3.example.tld", "thp":"signing_key_3_here"}]}}' <<< "temppassword"
+      fi
+    done
+
+
+
+Specifically ....
+
+adv=$(curl -sSf localhost:$port/adv)
+
+echo $adv \
+    | jose fmt -j- -g payload -y -o- \
+    | jose jwk use -i- -r -u verify -o- \
+    | jose jwk thp -i-
+
+Register output as thp signing key
+
+then use in the clevis bind luks command.

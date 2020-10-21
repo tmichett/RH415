@@ -42,6 +42,17 @@
           - clevis-dracut
         state: present
 
+
+## Get ServerB Signing Key from Tang
+    - name: Retrieve ServerB Signing Key
+      shell: curl -sSf serverb/adv
+      register: tangB
+
+    - name: Display ServerB Signing Key
+      debug:
+        var: tangB
+
+
 ## Bind Clevis to LUKS
 
     - name: Perform Clevis LUKS Bind

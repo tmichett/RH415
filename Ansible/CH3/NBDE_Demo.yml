@@ -70,7 +70,14 @@
       debug:
         var: tangB_output
 
+    - name: Register ServerB Signing Keys
+      set_fact:
+        tangB: tangB_output.stdout
 
+    - name: Output ServerB Signing Keys as Fact
+      debug:
+        var: tangB
+        
 ## Bind Clevis to LUKS
 
     - name: Perform Clevis LUKS Bind

@@ -49,7 +49,7 @@
       register: tangB_output
 
     - name:  Filter out Tang Signing Key
-      shell: echo {{ tangB_output }} jose fmt -j- -g payload -y -o- jose jwk use -i- -r -u verify -o- jose jwk thp -i-
+      shell: echo {{ tangB_output }} | jose fmt -j- -g payload -y -o- | jose jwk use -i- -r -u verify -o- | jose jwk thp -i-
       register: tangB
 
     - name: Display ServerB Signing Key

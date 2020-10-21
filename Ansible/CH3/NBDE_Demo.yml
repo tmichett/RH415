@@ -44,8 +44,16 @@
 
 
 ## Get ServerB Signing Key from Tang
-    - name: Retrieve ServerB Signing Key
+    - name: Retrieve ServerB Tang Data
       shell: curl -sSf serverb/adv
+      register: tangB_output
+
+    - name:  Filter out Tang Signing Key
+      shell: |
+        echo {{ tangB_output }}
+            | jose fmt -j- -g payload -y -o-
+            | jose jwk use -i- -r -u verify -o-
+            | jose jwk thp -i-
       register: tangB
 
     - name: Display ServerB Signing Key
